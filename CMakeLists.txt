@@ -8,3 +8,8 @@ set_target_properties(cpp-project PROPERTIES CXX_STANDARD 23)
 if(MINGW)
   target_link_libraries(cpp-project "-lstdc++exp")
 endif()
+add_custom_command(TARGET cpp-project POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_SOURCE_DIR}/include"
+    "$<TARGET_FILE_DIR:cpp-project>/include"
+)
